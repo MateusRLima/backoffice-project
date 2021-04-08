@@ -8,7 +8,7 @@
   >
     <template v-slot:prepend>
       <v-row class="ml-4 mt-5 mb-10">
-        <img class="ball-image" src="../assets/logo-tech.png" alt="Logo da Jogue Fácil" width="25px" height="25px"/>
+        <!-- <img class="ball-image" src="../assets/logo-tech.png" alt="Logo da Jogue Fácil" width="25px" height="25px"/> -->
       </v-row>
     </template>
     <v-list dense class="drawer-list">
@@ -81,7 +81,7 @@
 
 <script>
 
-  import { apiLogout, apiUserPermissions } from '../service'
+  // import { apiLogout, apiUserPermissions } from '../service'
 
   import { mapMutations } from "vuex";
 
@@ -94,13 +94,13 @@
         drawer: true,
         color: '',
         initItems: {
-          'JFU-VU' : { title: 'Clientes', icon: 'mdi-account', router: '/players' },
-          'JFC-VC' : { title: 'Colaboradores', icon: 'mdi-clipboard-account', router: '/user' },
-          'JFF-VN' : { title: 'Financeiro', icon: 'mdi-currency-usd', router: '/financial' },
-          'JFF-VT' : { title: 'Transações', icon: 'mdi-swap-horizontal-bold', router: '/transaction' },
-        },
+          },
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', router: '/dashboard' },
+          { title: 'Clientes', icon: 'mdi-account', router: '/players' },
+          { title: 'Colaboradores', icon: 'mdi-clipboard-account', router: '/user' },
+          { title: 'Financeiro', icon: 'mdi-currency-usd', router: '/financial' },
+          { title: 'Transações', icon: 'mdi-swap-horizontal-bold', router: '/transaction' },
         ],
         systems: [
           { title: 'Helpdesk', router: '/helpdesk' },
@@ -109,26 +109,28 @@
       }
     },
 
-    mounted(){
-      apiUserPermissions()
-        .then(res => {
-          Object.keys(res.data.permissions).forEach(element => {
-            if(Object.keys(this.initItems).includes(element)){
-              this.items.push(this.initItems[element])
-            }
-          });
-        })
-    },
+    // Pega as permissões que o usuário tem e renderiza as páginas que ele pode acessar
+    // mounted(){
+    //   apiUserPermissions()
+    //     .then(res => {
+    //       Object.keys(res.data.permissions).forEach(element => {
+    //         if(Object.keys(this.initItems).includes(element)){
+    //           this.items.push(this.initItems[element])
+    //         }
+    //       });
+    //     })
+    // },
 
     methods: {
       ...mapMutations(["showSnackbar", "closeSnackbar"]),
 
       logout(){
-       apiLogout()
-          .then(() => {
-            this.showSnackbar({ text: "Volte sempre !", timeout: 3000 });
-            this.$router.push('/')
-          })
+        this.$router.push('/')
+      // Retira cookie do usuário armazenado
+      //  apiLogout()
+      //     .then(() => {
+      //       this.showSnackbar({ text: "Volte sempre !", timeout: 3000 });
+      //     })
       },
     }
   }

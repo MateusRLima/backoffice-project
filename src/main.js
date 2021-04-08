@@ -13,6 +13,7 @@ import Footer from './components/tables/Footer.vue'
 import Vuelidate from 'vuelidate'
 import './global.css'
 
+Vue.use(Vuelidate)
 
 import { store } from './store'
 const pluginOptions = {
@@ -26,7 +27,6 @@ Vue.component('circle-loading', BaseLoading)
 Vue.component('top-table', Top)
 Vue.component('footer-table', Footer)
 
-Vue.use(Vuelidate)
 
 Vue.use(VueCurrencyInput, pluginOptions)
 

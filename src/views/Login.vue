@@ -5,8 +5,8 @@
     <v-row class="row-login" justify="space-between" align="center">
       <v-card class="login-card" flat dark>
         <v-card-title class="pa-0 flex-column align-start">
-          <h1 class="primary-font mb-2 text-h3">Jogue Fácil</h1>
-          <h2 class="secondary-font mb-3 text-h6">BackOffice</h2>
+          <h1 class="primary-font mb-2 text-h3">BackOffice</h1>
+          <h2 class="secondary-font mb-3 text-h6">Project</h2>
         </v-card-title>
         <v-card-text class="pa-0">
           <v-form ref="form" class="login-form" v-if="!detectMobile">
@@ -14,10 +14,11 @@
             <v-text-field
               height="30"
               id="email"
-              @blur="resetValidation()"
               class="mt-1 mb-2 text-caption"
               dense
-              :rules="emailRules"
+              :error-messages="emailErrors"
+              @input="$v.email.$touch()"
+              @blur="$v.email.$touch()"
               style="border-radius: 7px"
               color="#FFB300"
               outlined
@@ -29,14 +30,15 @@
                 <v-icon small class="mr-2">mdi-email</v-icon>
               </template>
             </v-text-field>
-            <label class="secondary-font" for="password">Senha</label>
+            <label class="secondary-font" for="password">Password</label>
             <v-text-field
               height="30"
               for="password"
-              @blur="resetValidation()"
+              @input="$v.password.$touch()"
+              @blur="$v.password.$touch()"
               class="mt-1 text-caption"
               dense
-              :rules="passwordRules"
+              :error-messages="passwordErrors"
               style="border-radius: 7px"
               color="#FFB300"
               outlined
@@ -58,7 +60,7 @@
             <base-btn
               width="100%"
               class="mt-7"
-              name="Entrar"
+              name="Log in"
               color="#474747"
               iconName="mdi-login"
               @clickEvent="login()"
@@ -66,10 +68,6 @@
             >
             </base-btn>
           </v-form>
-          <p class="login-text">
-            O Backoffice da Jogue Fácil não está disponível para browser no mobile, 
-            pois temos um aplicativo pronto pra isso ! Acesse ele por <a style="text-decoration: none; color: #FFB300" href="https://play.google.com/store/apps/details?id=com.logustech.back_office">aqui.</a>
-          </p>
         </v-card-text>
       </v-card>
       <img
@@ -84,7 +82,8 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { apiLogin } from "../service";
+// import { apiLogin } from "../service";
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   name: "Login",
@@ -96,15 +95,38 @@ export default {
       text: "",
       show: false,
       email: "",
-      emailRules: [
-        (v) => !!v || "E-mail obrigatório",
-        (v) => /.+@.+\..+/.test(v) || "Digite um e-mail válido",
-      ],
       password: "",
-      passwordRules: [(v) => !!v || "" || "Senha obrigatória"],
       token: "",
       status: "",
+      minLength: 3,
     };
+  },
+
+  validations: {
+    email: {
+      email,
+      required,
+    },
+
+    password: {
+      required,
+    }
+  },
+
+  computed:{  
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.required && errors.push('E-mail is required')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Password is required')
+      return errors
+    }
   },
 
   created () {
@@ -126,37 +148,39 @@ export default {
   methods: {
     ...mapMutations(["showSnackbar", "closeSnackbar"]),
     login() {
-      this.load = true;
-      apiLogin({
-        email: this.email,
-        password: this.password,
-      })
-        .then((res) => {
-          this.$emit("logged", true);
-          this.status = res.data.success;
-          if (this.status === true) {
-            this.load = false;
-            this.$router.push("/dashboard");
-          } else {
-            return null;
-          }
-        })
-        .catch((err) => {
-          this.load = false;
-          if (err.response.status === 404) {
-            this.showSnackbar({
-              text: "Desculpe, ocorreu um problema na conexão",
-              timeout: 3000,
-            });
-            this.load = false;
-          } else {
-            this.showSnackbar({
-              text: "Usuário ou senha inválido",
-              timeout: 3000,
-            });
-            this.load = false;
-          }
-        });
+      this.$router.push("/dashboard");
+      // Login feito com a utilização de cookies
+      // this.load = true;
+      // apiLogin({
+      //   email: this.email,
+      //   password: this.password,
+      // })
+      //   .then((res) => {
+      //     this.$emit("logged", true);
+      //     this.status = res.data.success;
+      //     if (this.status === true) {
+      //       this.load = false;
+            
+      //     } else {
+      //       return null;
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     this.load = false;
+      //     if (err.response.status === 404) {
+      //       this.showSnackbar({
+      //         text: "Desculpe, ocorreu um problema na conexão",
+      //         timeout: 3000,
+      //       });
+      //       this.load = false;
+      //     } else {
+      //       this.showSnackbar({
+      //         text: "Usuário ou senha inválido",
+      //         timeout: 3000,
+      //       });
+      //       this.load = false;
+      //     }
+      //   });
     },
 
     resetValidation() {

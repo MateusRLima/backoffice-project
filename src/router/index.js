@@ -9,7 +9,7 @@ import HelpDesk from '../views/HelpDesk'
 import Players from '../views/Players'
 import Financial from '../views/Financial'
 
-import { apiSessionVerify } from '../service'
+// import { apiSessionVerify } from '../service'
 
 Vue.use(VueRouter)
 
@@ -63,17 +63,17 @@ const router = new VueRouter({
 });
 
 
-router.beforeResolve((to, from, next) => {
-    apiSessionVerify()
-      .then(() => {
-        next()
-      }).catch(() => {
-        if (to.name !== "Login") {
-          next({ name: 'Login' })
-        } else {
-          next()
-        }
-      })
-  })
+// router.beforeResolve((to, from, next) => {
+//     apiSessionVerify()
+//       .then(() => {
+//         next()
+//       }).catch(() => {
+//         if (to.name !== "Login") {
+//           next({ name: 'Login' })
+//         } else {
+//           next()
+//         }
+//       })
+//   })
 
 export default router
