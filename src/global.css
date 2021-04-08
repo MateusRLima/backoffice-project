@@ -1,0 +1,49 @@
+.primary-font {
+  color: #F9F9F3 !important;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+
+.secondary-font {
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #7C7C7C !important;
+  letter-spacing: 0.1em;
+}
+
+.data-font {
+  font-size: 1em;
+  text-decoration: none;
+  color: #F9F9F3 !important;
+  letter-spacing: 0.1em;
+}
+
+.custom-input{
+  border-radius: 7px;
+}
+
+.custom-pagination {
+  margin-top: auto;
+  margin-left: 180px;
+}
+
+.custom-pagination li button {
+  margin: 0px;
+  height: 26px;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.custom-pagination li button.v-pagination__item {
+  margin: 0px 5px;
+  font-size: 0.9em;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.theme--dark .v-pagination .v-pagination__item--active {
+  color: white !important;
+  background-color: transparent !important;
+  text-decoration: underline;
+  box-shadow: none !important;
+};
