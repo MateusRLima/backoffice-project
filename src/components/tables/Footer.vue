@@ -16,7 +16,7 @@
       <v-spacer></v-spacer>
       <div class="d-flex align-center">
         <label for="itensPerPage" class="text-caption secondary-font mr-1"
-          >Itens por página</label
+          >Itens per page</label
         >
         <v-text-field
           id="itensPerPage"

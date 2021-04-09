@@ -2,7 +2,7 @@
   <div>
     <drawer-navigation/>
     <v-container class="mr-0 pr-0" style="max-width: 85%">
-      <h1 class="secondary--text mb-5">Bem Vindo !</h1>
+      <h1 class="secondary--text mb-5">Welcome !</h1>
       <v-row dense style="margin-bottom: 1vw">
         <v-col style="max-width: 15vw; margin-right: 1vw">
           <dashboard-balance></dashboard-balance>
@@ -26,8 +26,6 @@ import DashboardGraphics from '../components/dashboard/DashboardGraphics'
 import DashboardBalance from '../components/dashboard/DashboardBalance'
 import DashboardRecentTransaction from '../components/dashboard/DashboardRecentTransaction'
 
-import { mapMutations } from "vuex";
-
 export default {
   name: 'Dashboard',
 
@@ -48,8 +46,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["showSnackbar", "closeSnackbar"]),
-
     getTotal(total, num){
       return total + num;
     },

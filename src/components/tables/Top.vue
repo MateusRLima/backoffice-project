@@ -20,7 +20,7 @@
             </v-btn
           >
         </template>
-        <p class="text-caption secondary-font ma-0">Aumentar fonte</p>
+        <p class="text-caption secondary-font ma-0">Increase font size</p>
       </v-tooltip>
       <v-tooltip bottom color="#0C0C0C">
         <template v-slot:activator="{ on, attrs }">
@@ -37,12 +37,12 @@
             </v-btn
           >
         </template>
-        <p class="text-caption secondary-font ma-0">Diminuir fonte</p>
+        <p class="text-caption secondary-font ma-0">Decrease font size</p>
       </v-tooltip>
       <span
         class="mx-4"
         style="color: #707070; font-size: 0.9em"
-        >Tamanho da fonte: {{ fontSize }}</span
+        >Font size: {{ fontSize }}</span
       >
       <v-tooltip bottom v-if="!fullScreen" color="#0C0C0C">
         <template v-slot:activator="{ on, attrs }">
@@ -58,7 +58,7 @@
             <v-icon small>mdi-fullscreen</v-icon>
           </v-btn>
         </template>
-        <p class="text-caption secondary-font ma-0">Modo tela cheia</p>
+        <p class="text-caption secondary-font ma-0">Fullscreen</p>
       </v-tooltip>
       <v-tooltip bottom v-else color="#0C0C0C">
         <template v-slot:activator="{ on, attrs }">
@@ -74,7 +74,7 @@
             <v-icon small>mdi-fullscreen-exit</v-icon>
           </v-btn>
         </template>
-        <p class="text-caption secondary-font ma-0">Modo janela</p>
+        <p class="text-caption secondary-font ma-0">Normalscreen</p>
       </v-tooltip>
     </v-row>
   </v-container>

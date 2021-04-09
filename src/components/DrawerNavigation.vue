@@ -39,7 +39,7 @@
       >
         <template v-slot:activator>
           <v-list-item-title>
-            <span class="text-caption">Suporte</span>
+            <span class="text-caption">System</span>
           </v-list-item-title>
         </template>
         <v-list-item
@@ -97,10 +97,9 @@
           },
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', router: '/dashboard' },
-          { title: 'Clientes', icon: 'mdi-account', router: '/players' },
-          { title: 'Colaboradores', icon: 'mdi-clipboard-account', router: '/user' },
-          { title: 'Financeiro', icon: 'mdi-currency-usd', router: '/financial' },
-          { title: 'Transações', icon: 'mdi-swap-horizontal-bold', router: '/transaction' },
+          { title: 'Clients', icon: 'mdi-account', router: '/players' },
+          { title: 'Employees', icon: 'mdi-clipboard-account', router: '/user' },
+          { title: 'Transactions', icon: 'mdi-swap-horizontal-bold', router: '/transaction' },
         ],
         systems: [
           { title: 'Helpdesk', router: '/helpdesk' },

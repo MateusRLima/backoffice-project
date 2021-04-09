@@ -74,13 +74,13 @@
     <div v-show="view === 3">
       <div style="display: flex; align-items: center">
         <span class="white--text mr-10" style="font-size: 0.7em"
-          >Entrada:
+          >Deposits:
           <span class="green--text pl-2">
             + <span class="white--text">R$ {{ this.result }}</span></span
           ></span
         >
         <span class="white--text mr-5" style="font-size: 0.7em"
-          >Saída:
+          >Withdrawals:
           <span class="red--text pl-2">
             - <span class="white--text">R$ {{ this.withdrawTotal }}</span></span
           ></span

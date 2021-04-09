@@ -5,18 +5,18 @@
     :style="loading ? center : ''"
     style="max-height: 50vh; border-radius: 20px !important"
   >
-    <v-card-title class="pl-10 pt-10">
-      <p class="primary-font ma-0 text-subtitle-1">Balanço</p>
+    <v-card-title class="pl-14 pt-10">
+      <p class="primary-font ma-0 text-subtitle-1">Profit</p>
     </v-card-title>
     <v-card-text class="px-0 d-flex align-center justify-center">
-      <circle-loading v-if="loading"></circle-loading>
-      <div v-else>
+      <!-- <circle-loading v-if="loading"></circle-loading> -->
+      <div>
         <img src="../../assets/balance.png" loading="lazy">
-        <h2 class="primary-font font-weight-bold">R$ {{this.result}}</h2>
+        <h2 class="primary-font font-weight-bold">$ 522.554,00</h2>
       </div>
     </v-card-text>
     <v-card-actions class="pt-4 pb-10 d-flex justify-center align-center">
-      <p class="secondary-font mb-0 text-caption">Últimos 7 dias</p>
+      <p class="secondary-font mb-0 text-caption">Last 7 days</p>
     </v-card-actions>
   </v-card>
 </template>

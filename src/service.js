@@ -3,7 +3,7 @@ import axios from 'axios'
 var url = ''
 
 if(process.env.NODE_ENV === 'development'){
-  url = 'https://5f7d5e476bbf.ngrok.io'
+  url = 'https://c116b56c9620.ngrok.io'
 } else {
   url = '/api'
 }

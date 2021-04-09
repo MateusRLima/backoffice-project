@@ -6,7 +6,7 @@
     class="px-5"
   >
     <v-card-title class="pl-7 pt-10">
-      <p class="primary-font ma-0 text-subtitle-1">Gráfico</p>
+      <p class="primary-font ma-0 text-subtitle-1">Chart</p>
     </v-card-title>
     <v-card-text class="pb-0 px-5">
       <div v-if="loading" class="d-flex justify-space-around">
@@ -21,7 +21,7 @@
       />
     </v-card-text>
     <v-card-actions class="pt-3 pb-10 d-flex justify-center">
-      <p class="secondary-font ma-0 text-caption">Últimos 7 dias</p>
+      <p class="secondary-font ma-0 text-caption">Last 7 days</p>
     </v-card-actions>
   </v-card>
 </template>

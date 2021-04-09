@@ -2,9 +2,9 @@
   <v-card color="primary" class="pa-10" style="border-radius: 20px">
     <v-card-text class="pa-0">
       <v-row class="ma-auto mb-4" align="center">
-        <p  class="primary-font ma-0 text-subtitle-1">Transações Recentes</p>
+        <p  class="primary-font ma-0 text-subtitle-1">Recent Transactions</p>
         <v-spacer></v-spacer>
-        <router-link class="secondary-font text-caption" to="/transaction">Ver mais</router-link>
+        <router-link class="secondary-font text-caption" to="/transaction">See more</router-link>
       </v-row>
       <v-data-table
         item-key="orderId"
@@ -101,8 +101,8 @@ export default {
       return [
         { text: 'Status', value: 'status', align: 'center', divider: true, width: '10' },
         { text: 'Email', value: 'email', align: 'center', divider: true },
-        { text: 'Tipo', value: 'type', align: 'center', divider: true, width: '10' },
-        { text: 'Valor', value: 'brlValue', align: 'center', divider: true, width: '50' },
+        { text: 'Type', value: 'type', align: 'center', divider: true, width: '10' },
+        { text: 'Value', value: 'brlValue', align: 'center', divider: true, width: '50' },
       ]
     }
   },
