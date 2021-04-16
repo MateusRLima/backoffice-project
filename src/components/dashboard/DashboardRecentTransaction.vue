@@ -67,7 +67,7 @@
 
 <script>
 
-import { apiTransGetL, apiLogout } from '../../service'
+// import { apiTransGetL, apiLogout } from '../../service'
 
 export default {
   name: 'DashboardRecentTransaction',
@@ -76,7 +76,38 @@ export default {
     return {
       search: '',
       psp: '',
-      items: [],
+      items: [
+        {
+          status: 1,
+          email: 'johndoe@email.com',
+          type: 'Transfer',
+          brlValue: '25,50'
+        },
+        {
+          status: 2,
+          email: 'johndoe@email.com',
+          type: 'Transfer',
+          brlValue: '39,50'
+        },
+        {
+          status: 3,
+          email: 'johndoe@email.com',
+          type: 'Transfer',
+          brlValue: '50,00'
+        },
+        {
+          status: 2,
+          email: 'johndoe@email.com',
+          type: 'Credit',
+          brlValue: '50,00'
+        },
+        {
+          status: 2,
+          email: 'johndoe@email.com',
+          type: 'Transfer',
+          brlValue: '50,00'
+        },
+      ],
       expanded: [],
       interval: null,
       singleExpand: true,
@@ -108,36 +139,36 @@ export default {
   },
 
   mounted(){
-    this.getTrades(true)
+    // this.getTrades(true)
     // this.interval = setInterval(() => {
     //   this.getTrades(false)
     // }, 20000)
   },
 
   methods: {
-    getTrades(load){
-      this.load = load
-      apiTransGetL()
-        .then(res => {
-          this.items = res.data.data
-          this.load = false
-        })
-        .catch(err => {
-          this.status = err.response.data.status
-          if(err.response.status === 404){
-            this.showSnackbar({ text: "Problema de Conexão", timeout: 3000 });
-            this.load = false
-            this.$router.push('/')
-          }
-          else if(this.status === 3 || this.status === 1 || this.status === 2 || this.status === 0){
-            this.showSnackbar({ text: "Sessão Expirada", timeout: 3000 });
-            apiLogout()
-            this.load = false
-            this.$router.push('/')
-          }
-          this.load = false
-        })
-      },
+      // getTrades(load){
+      //   this.load = load
+      //   apiTransGetL()
+      //     .then(res => {
+      //       this.items = res.data.data
+      //       this.load = false
+      //     })
+      //     .catch(err => {
+      //       this.status = err.response.data.status
+      //       if(err.response.status === 404){
+      //         this.showSnackbar({ text: "Problema de Conexão", timeout: 3000 });
+      //         this.load = false
+      //         this.$router.push('/')
+      //       }
+      //       else if(this.status === 3 || this.status === 1 || this.status === 2 || this.status === 0){
+      //         this.showSnackbar({ text: "Sessão Expirada", timeout: 3000 });
+      //         apiLogout()
+      //         this.load = false
+      //         this.$router.push('/')
+      //       }
+      //       this.load = false
+      //     })
+      // },
 
       statusColor(status){
         if(status === 1){

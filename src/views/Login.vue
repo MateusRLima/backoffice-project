@@ -82,7 +82,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { apiLogin } from "../service";
 import { required, email } from 'vuelidate/lib/validators'
 
 export default {
@@ -148,44 +147,8 @@ export default {
   methods: {
     ...mapMutations(["showSnackbar", "closeSnackbar"]),
     login() {
-      // Login was made using cookies
+      this.$router.push("/dashboard");
       this.load = true;
-      apiLogin({
-          email: this.email,
-        password: this.password,
-      })
-        .then((res) => {
-            this.$emit("logged", true);
-          this.status = res.data.success;
-          if (this.status === true) {
-              this.load = false;
-              this.$router.push("/dashboard");
-          } else {
-            return null;
-          }
-        })
-        .catch((err) => {
-          this.load = false;
-          if (err.response.status === 404) {
-            this.showSnackbar({
-              text: "Desculpe, ocorreu um problema na conexão",
-              timeout: 3000,
-            });
-            this.load = false;
-          } else {
-            this.showSnackbar({
-              text: "Usuário ou senha inválido",
-              timeout: 3000,
-            });
-            this.load = false;
-          }
-        });
-    },
-
-    resetValidation() {
-      setTimeout(() => {
-        this.$refs.form.resetValidation();
-      }, 1000);
     },
   },
 };

@@ -17,9 +17,9 @@ export default {
   },
 
   mounted () {
-    const entries = this.entries.map(elem => {return elem.value})
-    const withdraw = this.withdraw.map(elem => {return elem.value})
-    const data = this.entries.map(elem => {return elem.data})
+    const entries = ['150', '584', '398', '874', '1500', '350', '98']
+    const withdraw = ['25', '15', '85', '28', '15', '27', '65']
+    const data = ['02/18', '02/19', '02/20', '02/21', '02/22', '02/23', '02/24']
 
     this.renderChart(
       {

@@ -28,7 +28,7 @@
 
 <script>
 
-import { apiTransDataL } from '../../service'
+// import { apiTransDataL } from '../../service'
 import LineChart from './DashboardGraphicChart.vue'
 
 export default {
@@ -76,21 +76,6 @@ export default {
   }),
 
   components: { LineChart },
-
-  async mounted(){
-    this.loading = true
-    await apiTransDataL()
-    .then(res => {
-      this.profit = res.data.profit.toFixed(2)
-      this.total = res.data.total.map(elem => {return elem.value})
-      this.result = this.total.reduce(this.getTotal)
-      this.result = this.result.toFixed(2)
-      this.withdraw = res.data.withdraw
-      this.entries = res.data.entries
-      this.data = res.data.total
-      this.loading = false
-    })
-  },
 
   methods: {
     getTotal(total, num){
