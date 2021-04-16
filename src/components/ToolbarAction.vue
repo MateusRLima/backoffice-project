@@ -46,50 +46,25 @@
       </v-row>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div v-show="view === 1">
-      <base-btn
-        class="mr-5"
-        :outlined="true"
-        name="Atualizar Tabela"
-        color="#474747"
-        iconName="mdi-reload"
-        @clickEvent="updateNFSE()"
-      ></base-btn>
-      <base-btn
-        name="Emitir NFSE"
-        iconName="mdi-file-send"
-        @clickEvent="emitNFSE()"
-      >
-      </base-btn>
-    </div>
-    <div v-show="view === 2">
-      <base-btn
-        name="Adicionar Empresa"
-        iconName="mdi-briefcase-plus"
-        @clickEvent="createCompany()"
-      >
-      </base-btn>
-      <!-- <base-btn name="Emitir Boleto" iconName="mdi-barcode" @clickEvent="openEmitBillet()"></base-btn> -->
-    </div>
     <div v-show="view === 3">
       <div style="display: flex; align-items: center">
         <span class="white--text mr-10" style="font-size: 0.7em"
           >Deposits:
           <span class="green--text pl-2">
-            + <span class="white--text">R$ {{ this.result }}</span></span
+            + <span class="white--text">R$ 5822,50</span></span
           ></span
         >
         <span class="white--text mr-5" style="font-size: 0.7em"
           >Withdrawals:
           <span class="red--text pl-2">
-            - <span class="white--text">R$ {{ this.withdrawTotal }}</span></span
+            - <span class="white--text">R$ 1852,50</span></span
           ></span
         >
       </div>
     </div>
     <div v-show="view === 4">
       <base-btn
-        name="Registrar Colaborador"
+        name="Register Employee"
         iconName="mdi-account-plus"
         @clickEvent="registerUser()"
       >
@@ -98,7 +73,7 @@
     <div v-show="view === 5">
       <base-btn
         v-show="!disable"
-        name="Editar clientes"
+        name="Edit Client"
         iconName="mdi-pencil-box-multiple"
         @clickEvent="openEditMass(true)"
       >
@@ -106,7 +81,7 @@
     </div>
     <div v-show="view === 6">
       <base-btn
-        name="Registrar chamado"
+        name="Register ticket"
         iconName="mdi-plus"
         @clickEvent="openRTicket(true)"
       >
@@ -114,7 +89,7 @@
     </div>
     <div v-show="view === 7">
       <base-btn
-        name="Criar grupo"
+        name="Create Group"
         iconName="mdi-account-multiple-plus"
         @clickEvent="createGroup()"
         class="mr-4"
@@ -128,14 +103,13 @@
         small
       >
         <v-icon small class="mr-2" :color="titleColor">mdi-pencil</v-icon>
-        <span :style="{ color: titleColor }" class="text-caption" >Editar</span>
+        <span :style="{ color: titleColor }" class="text-caption" >Edit</span>
       </v-btn>
     </div>
   </v-toolbar>
 </template>
 
 <script>
-import { apiTransDataL } from "../service";
 
 export default {
   name: "Toolbar",
@@ -173,46 +147,18 @@ export default {
       withdraw: "",
       withdrawTotal: "",
       register: Boolean,
-      pagesGroup: ["Colaboradores", "Grupos"],
-      pageGroup: "Colaboradores",
-      pagesFinancial: ["NFSE", "Empresa" ],
-      pageFinancial: "NFSE",
+      pagesGroup: ["Employees", "Groups"],
+      pageGroup: "Employees",
     };
   },
 
-  mounted() {
-    apiTransDataL().then((res) => {
-      this.total = res.data.entries.map((elem) => {
-        return elem.value;
-      });
-      this.result = this.total.reduce(this.getTotal);
-      this.result = this.result.toFixed(2);
-      this.withdraw = res.data.withdraw.map((elem) => {
-        return elem.value;
-      });
-      this.withdrawTotal = this.withdraw.reduce(this.getTotal);
-      this.withdrawTotal = this.withdrawTotal.toFixed(2);
-    });
-  },
-
   methods: {
-    getTotal(total, num) {
-      return total + num;
-    },
-
-    emitNFSE() {
-      this.$emit("emitNfse");
-    },
 
     editGroup() {
       this.btnIsActive = !this.btnIsActive
       this.color = !this.btnIsActive ? '#1E1E1E' : '#FFB300'
       this.titleColor = !this.btnIsActive ? 'white' : 'black'
       this.$emit("editGroup", false);
-    },
-
-    setTableFinancial() {
-      this.$emit("viewTable", this.pageFinancial);
     },
 
     setTableGroup() {
@@ -225,18 +171,6 @@ export default {
 
     openEditMass() {
       this.$emit("openEditMass");
-    },
-
-    updateNFSE() {
-      this.$emit("updateNfse");
-    },
-
-    createCompany() {
-      this.$emit("createCompany");
-    },
-
-    openEmitBillet() {
-      this.$emit("openEmitBillet");
     },
 
     registerUser() {

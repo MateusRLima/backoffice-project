@@ -2,7 +2,7 @@
   <div>
     <drawer-navigation/>
     <v-container>
-      <toolbar-menu :disable="disabled" icon="mdi-account" title="Clientes" :view="5" @openEditMass="openEditMass"/>
+      <toolbar-menu :disable="disabled" icon="mdi-account" title="Clients" :view="5" @openEditMass="openEditMass"/>
        <player-dialog
         v-model="show"
         ref="playerDialog"
@@ -34,7 +34,7 @@
             dark
             :height="height + 'vh'"
             style="border-radius: 0px; background-color: #111"
-            no-results-text="O cliente não foi encontrado"
+            no-results-text="Client not found"
           >
             <template #loading>
               <circle-loading style="margin-top: 20vh"></circle-loading>
@@ -59,9 +59,6 @@
                   </v-text-field>
                 </template>
               </top-table>
-            </template>
-            <template #no-data>
-              <span style="color: white">Não há clientes disponíveis para visualização</span>
             </template>
             <template #item.id="{ item }">
               <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{item.id}}</span>
@@ -108,7 +105,6 @@
 </template>
 
 <script>
-  import { apiListClient, apiLogout } from '../service'
   import { mapMutations } from "vuex";
 
   import PlayerEditDialog from '../components/players/PlayerEditDialog'
@@ -132,7 +128,50 @@
         pageCount: 0,
         height: 55,
         fontSize: 12,
-        items: [],
+        items: [
+          {
+            id: 0,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '311-647-2945',
+          },
+          {
+            id: 1,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '553-390-1782',
+          },
+          {
+            id: 2,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '999-477-8742',
+          },
+          {
+            id: 3,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '677-469-8621',
+          },
+          {
+            id: 4,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '544-381-2394',
+          },
+          {
+            id: 5,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '349-463-1936',
+          },
+          {
+            id: 6,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            phone: '315-275-1337',
+          },
+        ],
         load: false,
         loadT: '',
         show: false,
@@ -152,13 +191,10 @@
     computed: {
       headers(){
         return [
-          { text:'ID', value: 'id', align: 'left', divider: true, width: '6%' },
-          { text:'Nome', value: 'firstName', align: 'left', divider: true },
-          { text:'Email', value: 'email', align: 'left', divider: true },
-          { text: 'Telefone', value: 'phone', align: 'center', divider: true },
-          { text:'Broker', value: 'btag', align: 'center', divider: true },
-          { text:'Balanço', value: 'balance', align: 'center', divider: true },
-          // { text: 'Ação', value: 'action', align: 'center', divider: true, width: '5%' }
+          { text:'ID', value: 'id', align: 'left', divider: true, width: '5px' },
+          { text:'Name', value: 'name', align: 'left', divider: true, width: '5px' },
+          { text:'Email', value: 'email', align: 'left', divider: true, width: '5px' },
+          { text: 'Phone Number', value: 'phone', align: 'left', divider: true, width: '5px' },
         ]
       },
 
@@ -169,10 +205,6 @@
           return false
         }
       }
-    },
-
-    created(){
-      this.getClients();
     },
 
     mounted(){
@@ -259,44 +291,6 @@
       },
 
       ...mapMutations(["showSnackbar", "closeSnackbar"]),
-      
-      parseDate(now) {
-        now = new Date(now)
-        return `${now.getDate() >= 10 ? now.getDate() : `0${now.getDate()}`}/${now.getMonth() + 1 >= 10 ? now.getMonth() + 1 : `0${now.getMonth() + 1}`}/${now.getFullYear()}
-        ${now.getHours() >= 10 ? now.getHours() : `0${now.getHours()}`}:${now.getMinutes() >= 10 ? now.getMinutes() : `0${now.getMinutes()}`}:${now.getSeconds() >= 10 ? now.getSeconds() : `0${now.getSeconds()}`}`
-      },
-
-      convertDate(date) {
-        function pad(s) { return (s < 10) ? '0' + s : s; }
-        var d = new Date(date)
-        return [pad(d.getDate()+1), pad(d.getMonth()+1), d.getFullYear()].join('/')
-      },
-      
-      getClients() {
-        this.loadT = 'Carregando os clientes, aguarde ...'
-        this.load = true
-        apiListClient()
-          .then(res => {
-            this.items = res.data.data
-            this.id = res.data.data.map(elem => elem.id)
-            this.load = false
-          })
-          .catch(err => {
-            this.status = err.response.data.status
-            if(err.response.status === 404){
-              this.showSnackbar({ text: "Problema de Conexão", timeout: 3000 });
-              this.load = false
-              this.$router.push('/')
-            }
-            else if(this.status === 3 || this.status === 1 || this.status === 2 || this.status === 0){
-              this.showSnackbar({ text: "Sessão Expirada", timeout: 3000 });
-              apiLogout()
-              this.load = false
-              this.$router.push('/')
-            }
-            this.load = false
-          })
-      },
     }
   }
 </script>

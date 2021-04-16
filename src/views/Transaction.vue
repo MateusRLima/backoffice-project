@@ -2,7 +2,7 @@
   <div>
     <drawer-navigation/>
     <v-container>
-      <toolbar-menu icon="mdi-swap-horizontal-bold" title="Transações" :view="3"/>
+      <toolbar-menu icon="mdi-swap-horizontal-bold" title="Transactions" :view="3"/>
       <v-card id="table" color="primary" class="mt-3" style="border-radius: 20px">
         <v-card-text class="pb-2">
           <v-data-table
@@ -20,12 +20,12 @@
             :sort-by.sync="sortBy"
             :sort-desc.sync="sortDesc"
             :item-class="itemRowBackground"
-            loading-text="Carregando transações, aguarde ..."
+            loading-text="Loading transactions, please wait ..."
             :height="height + 'vh'"
             class="elevation-0"
             style="border-radius: 10px; background-color: #111"
             fixed-header
-            no-results-text="A transação não foi encontrada"
+            no-results-text="Transaction not found"
             hide-default-footer
           >
             <template #loading>
@@ -39,7 +39,7 @@
                     color="#F9F9F3"
                     v-model="search"
                     class="text-caption mr-5"
-                    placeholder="Pesquisar"
+                    placeholder="Search"
                     dense
                     outlined
                     hide-details
@@ -50,7 +50,7 @@
                       <v-icon small>mdi-magnify</v-icon>
                     </template>
                   </v-text-field>
-                  <label for="statusFilter" class="text-caption secondary-font mr-1">Status</label>
+                  <!-- <label for="statusFilter" class="text-caption secondary-font mr-1">Status</label>
                   <v-select
                     id="statusFilter"
                     color="#F9F9F3"
@@ -60,19 +60,16 @@
                     outlined
                     hide-details
                     :items="status"
-                    item-value="id"
+                    item-value="label"
                     item-text="label"
-                    v-model="selectedStatus"
-                    @input="transactionFilter('LOGUS')"
+                    v-model="search"
+                    @input="transactionFilter()"
                     class="mr-5 custom-input text-caption"
                     style="max-width: 12vw"
                   >
-                  </v-select>
+                  </v-select> -->
                 </template>
               </top-table>
-            </template>
-            <template v-slot:no-data>
-              Não há transações disponíveis para visualização
             </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
@@ -352,12 +349,8 @@ export default {
       this.totalItems = totalItems
     },
 
-      
     transactionFilter(){
-      this.items = this.items.filter(elem => {
-        return elem.status === this.selectedStatus ? elem : 'erro'
-      })
-      console.log(this.items)
+      this.item = ['']
     },
 
     openFullscreen() {

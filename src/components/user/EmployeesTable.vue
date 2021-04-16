@@ -22,7 +22,7 @@
             hide-default-footer
             :height="height + 'vh'"
             style="border-radius: 0px; background-color: #111"
-            no-results-text="O usuário não foi encontrado"
+            no-results-text="User not found"
           >
             <template #loading>
               <circle-loading style="margin-top: 20vh"></circle-loading>
@@ -34,7 +34,7 @@
                     color="secondary"
                     v-model="search"
                     class="text-caption"
-                    placeholder="Pesquisar"
+                    placeholder="Search"
                     dense
                     outlined
                     hide-details
@@ -48,9 +48,6 @@
                 </template>
               </top-table>
             </template>
-            <template v-slot:no-data>
-              <span style="color: white">Não há usuários disponíveis para visualização</span>
-            </template>
             <template #item.id="{ item }">
               <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{item.id}}</span>
             </template>
@@ -61,7 +58,7 @@
               <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{item.email}}</span>
             </template>
             <template #item.birthDate="{ item }">
-              <span class="data-font" :style="{fontSize: fontSize + 'px'}"> {{ dateConvert(item.birthDate, false) }} </span>
+              <span class="data-font" :style="{fontSize: fontSize + 'px'}"> {{ item.birthdate }} </span>
             </template>
             <template #item.group.name="{ item }">
               <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{item.group.name}}</span>
@@ -70,10 +67,10 @@
               <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{item.office}}</span>
             </template>
             <template #item.createdAt="{ item }">
-              <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{ dateConvert(item.createdAt, true) }}</span>
+              <span class="data-font" :style="{fontSize: fontSize + 'px'}">{{ item.createdAt }}</span>
             </template>
             <template #item.activated="{ item }">
-              <v-tooltip color="#0C0C0C" v-if="item.statusId === 1  " bottom>
+              <v-tooltip color="#0C0C0C" v-if="item.status === 1  " bottom>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon small v-bind="attrs" v-on="on" color="green">mdi-checkbox-marked-circle-outline</v-icon>
                 </template>
@@ -113,7 +110,6 @@
 </template>
 
 <script>
-  import { apiUserList, apiLogout } from '../../service'
   import { mapMutations } from "vuex";
   import EmployeesDialog from './employees/EmployeesDialog'
 
@@ -131,7 +127,78 @@
         pageCount: 0,
         height: 55,
         fontSize: 12,
-        items: [],
+        items: [
+          {
+            id: 0,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 2,
+          },
+          {
+            id: 1,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 1,
+          },
+          {
+            id: 2,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 1,
+          },
+          {
+            id: 3,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 1,
+          },
+          {
+            id: 4,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 2,
+          },
+          {
+            id: 5,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 1,
+          },
+          {
+            id: 6,
+            name: 'John Doe',
+            email: 'johndoe@email.com',
+            birthdate: '06/02/1998',
+            group: 'Manager',
+            office: 'New York',
+            createdAt: '28/04/1998',
+            status: 1,
+          },
+        ],
         full: false,
         load: false,
         loadT: '',
@@ -151,22 +218,18 @@
       headers(){
         return [
           { text:'ID', value: 'id', align: 'left', divider: true },
-          { text:'Nome', value: 'userName', align: 'center', divider: true },
+          { text:'Name', value: 'name', align: 'center', divider: true },
           { text:'Email', value: 'email', align: 'center', divider: true },
-          { text:'Data de Nascimento', value: 'birthDate', align: 'center', divider: true },
-          { text:'Grupo', value: 'group.name', align: 'center', divider: true },
-          { text:'Escritório', value: 'office', align: 'center', divider: true },
-          { text:'Criado Em', value: 'createdAt', align: 'center', divider: true },
+          { text:'Birthdate', value: 'birthdate', align: 'center', divider: true },
+          { text:'Group', value: 'group', align: 'center', divider: true },
+          { text:'Office', value: 'office', align: 'center', divider: true },
+          { text:'Created at', value: 'createdAt', align: 'center', divider: true },
           { text:'Status', value: 'activated', align: 'center', divider: true },
-          { text:'Ação', value: 'action', align: 'center', divider: true, width: '5%' }
+          { text:'Actions', value: 'action', align: 'center', divider: true, width: '5%' }
         ]
       }
     },
 
-    mounted() {
-      this.getUser()
-    },
-    
     methods: {
 
       nextPage(page) {
@@ -278,32 +341,6 @@
         this.register = false
         this.showG = true
         this.$refs.ergroups.getGroupList()
-      },
-
-      getUser(){
-        this.loadT = 'Carregando usuários, aguarde ...'
-        this.load = true
-        apiUserList()
-          .then(res => {
-            this.items = res.data.data
-            this.id = res.data.data.map(elem => elem.id)
-            this.load = false
-          })
-          .catch(err => {
-            this.status = err.response.data.status
-            if(err.response.status === 404){
-              this.showSnackbar({ text: "Problema de Conexão", timeout: 3000 });
-              this.load = false
-              this.$router.push('/')
-            }
-            else if(this.status === 3 || this.status === 1 || this.status === 2 || this.status === 0){
-              this.showSnackbar({ text: "Sessão Expirada", timeout: 3000 });
-              apiLogout()
-              this.load = false
-              this.$router.push('/')
-            }
-            this.load = false
-          })
       },
     }
   }

@@ -44,7 +44,7 @@ export default {
     },
 
     setTable(page) {
-      if (page === "Colaboradores") {
+      if (page === "Employees") {
         this.table = true;
         this.view = 4;
         this.icon = "mdi-clipboard-account";

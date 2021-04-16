@@ -7,9 +7,7 @@ import User from '../views/User'
 import Log from '../views/Log'
 import HelpDesk from '../views/HelpDesk'
 import Players from '../views/Players'
-import Financial from '../views/Financial'
 
-// import { apiSessionVerify } from '../service'
 
 Vue.use(VueRouter)
 
@@ -23,11 +21,6 @@ Vue.use(VueRouter)
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-  },
-  {
-    path: '/financial',
-    name: 'Financial',
-    component: Financial,
   },
   {
     path: '/transaction',
@@ -61,19 +54,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
-
-// router.beforeResolve((to, from, next) => {
-//     apiSessionVerify()
-//       .then(() => {
-//         next()
-//       }).catch(() => {
-//         if (to.name !== "Login") {
-//           next({ name: 'Login' })
-//         } else {
-//           next()
-//         }
-//       })
-//   })
 
 export default router
